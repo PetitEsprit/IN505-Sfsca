@@ -2,8 +2,9 @@
 #define VALVE_HPP
 
 #include "e_state.hpp" 
+#include "Part.hpp"
 
-class Valve
+class Valve : public Part
 {
 	e_state state;
 	public:
