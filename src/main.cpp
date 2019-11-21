@@ -1,8 +1,7 @@
-#include "Tank.hpp"
-#include "Motor.hpp"
+#include "System.hpp"
 
 int main()
 {
-	Tank t1(ON,ON);
+	System sfsca;
 	return 0;
 }

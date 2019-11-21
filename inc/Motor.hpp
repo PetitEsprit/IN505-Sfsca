@@ -6,10 +6,8 @@
 
 class Motor : public Part
 {
-	e_state state;
 	public:
-		Motor(e_state inite);
-		int getState();
+		Motor();
 		~Motor();
 };
 

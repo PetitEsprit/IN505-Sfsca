@@ -3,11 +3,13 @@
 
 enum e_state
 {
-	BROKEN = -1,
-	OFF = 1,
-	ON = 0,
-	CLOSE = OFF,
-	OPEN = ON
+	BROKEN = -1,//pump
+	OFF = 0,
+	ON = 1,
+	CLOSE = OFF,//valve
+	OPEN = ON,
+	EMPTY = OFF,//Tank
+	FULL = ON
 };
 
 #endif
