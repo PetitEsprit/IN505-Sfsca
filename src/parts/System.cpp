@@ -17,3 +17,16 @@ void System::run()
 {
 	
 } 
+
+void System::search()
+{
+	bool hasvisit[11] = {0};
+	DFS(parts[0], hasvisit);
+	//DFS(parts[1], hasvisit);
+	//DFS(parts[2], hasvisit);
+}
+
+void System::DFS(Part* p, bool *hasvisit)
+{
+	
+}

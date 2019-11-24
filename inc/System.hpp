@@ -11,8 +11,10 @@ class System
 		Part *parts[11];
 	public:
 		System();
-		void run();
 		~System();
+		void run();
+		void search();
+		void DFS(Part* p, bool *hasvisit);
 };
 
 #endif
