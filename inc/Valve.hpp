@@ -11,6 +11,7 @@ class Valve : public Part
 		Valve();
 		~Valve();
 		int getState();
+		void transmit(bool *b);
 };
 
 #endif

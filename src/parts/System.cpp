@@ -1,11 +1,13 @@
 #include "System.hpp"
+#include <iostream>
 
 System::System()
 {
-	parts[0] = new Tank(ON,ON,FULL); parts[1] = new Tank(ON,ON,FULL); parts[2] = new Tank(ON,ON,FULL);
+	parts[0] = new Tank(); parts[1] = new Tank(); parts[2] = new Tank();
 	parts[3] = new Motor(); parts[4] = new Motor(); parts[5] = new Motor();
 	parts[6] = new Valve(); parts[7] = new Valve(); parts[8] = new Valve(); //V
 	parts[9] = new Valve(); parts[10] = new Valve();//VT
+	
 }
 
 System::~System()
@@ -15,18 +17,7 @@ System::~System()
 
 void System::run()
 {
-	
-} 
-
-void System::search()
-{
-	bool hasvisit[11] = {0};
-	DFS(parts[0], hasvisit);
-	//DFS(parts[1], hasvisit);
-	//DFS(parts[2], hasvisit);
+	bool hasvisit[11];
+	parts[0]->transmit(hasvisit);
 }
 
-void System::DFS(Part* p, bool *hasvisit)
-{
-	
-}

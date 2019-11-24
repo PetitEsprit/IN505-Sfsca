@@ -3,5 +3,6 @@
 int main()
 {
 	System sfsca;
+	sfsca.run();
 	return 0;
 }

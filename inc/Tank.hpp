@@ -8,7 +8,7 @@ class Tank : public Part
 {
 	e_state p1, p2, fuel;
 	public:
-		Tank(e_state _p1, e_state _p2, e_state _fuel);
+		Tank();
 		~Tank();
 		int getP1();
 		int getP2();
@@ -16,6 +16,7 @@ class Tank : public Part
 		void setP1(e_state e);
 		void setP2(e_state e);
 		void setFuel(e_state e);
+		void transmit(bool *b);
 };
 
 #endif

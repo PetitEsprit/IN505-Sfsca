@@ -13,8 +13,6 @@ class System
 		System();
 		~System();
 		void run();
-		void search();
-		void DFS(Part* p, bool *hasvisit);
 };
 
 #endif
