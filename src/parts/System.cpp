@@ -3,21 +3,30 @@
 
 System::System()
 {
-	parts[0] = new Tank(); parts[1] = new Tank(); parts[2] = new Tank();
-	parts[3] = new Motor(); parts[4] = new Motor(); parts[5] = new Motor();
-	parts[6] = new Valve(); parts[7] = new Valve(); parts[8] = new Valve(); //V
-	parts[9] = new Valve(); parts[10] = new Valve();//VT
+	parts[T1] = new Tank();
+	parts[T2] = new Tank();
+	parts[T3] = new Tank();
+
+	parts[M1] = new Motor();
+	parts[M2] = new Motor();
+	parts[M3] = new Motor();
+
+	parts[V12] = new Valve();
+	parts[V13] = new Valve();
+	parts[V23] = new Valve();
+
+	parts[VT12] = new Valve();
+	parts[VT23] = new Valve();
 	
 }
 
 System::~System()
 {
-	for(Part *p : parts) delete p;
+	for (Part *p : parts) delete p;
 }
 
 void System::run()
 {
-	bool hasvisit[11];
-	parts[0]->transmit(hasvisit);
+	
 }
 

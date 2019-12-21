@@ -1,24 +1,10 @@
 #include "Part.hpp"
 
-int Part::_nbParts = 0;
+Part::Part() {}
 
-Part::Part() : id(_nbParts){_nbParts++;}
+Part::~Part() {}
 
-Part::~Part(){_nbParts--;}
-
-int Part::getId(){return id;}
-
-std::vector<Part *> &Part::getPn()
+std::string Part::toString()
 {
-	return pnearby;
-}
-
-void Part::addLink(Part* p)
-{
-	pnearby.push_back(p);
-}
-
-void Part::toString()
-{
-	std::cout << "I don't know this kind Part !" << std::endl;
+	return "Unknown part";
 }

@@ -1,7 +1,6 @@
 #ifndef VALVE_HPP
-#define VALVE_HPP
-
-#include "Part.hpp"
+# define VALVE_HPP
+# include "Part.hpp"
 
 class Valve : public Part
 {
@@ -10,8 +9,7 @@ class Valve : public Part
 		Valve();
 		~Valve();
 		bool getState();
-		void transmit(bool *b);
-		void toString();
+		std::string toString();
 };
 
 #endif

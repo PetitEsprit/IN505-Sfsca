@@ -7,15 +7,15 @@ LDFLAGS		= -L./$(LIB_DIR) -l$(NAME)
 # Ajouter dépendances dans LDFLAGS AVANT -L 
 
 # DIRECTORIES
-BUILD		:= build
-BIN_DIR 	:= $(BUILD)/bin
-DEP_DIR		:= $(BUILD)/dep
-LIB_DIR		:= $(BUILD)/lib
-OBJ_DIR 	:= $(BUILD)/obj
-CAT_DIR		:= $(patsubst src/%/, %, $(dir $(wildcard src/*/.)))
-SUB_DIR		:= $(BIN_DIR) $(DEP_DIR) $(LIB_DIR) $(OBJ_DIR) \
-			   $(addprefix $(DEP_DIR)/, $(CAT_DIR)) \
-			   $(addprefix $(OBJ_DIR)/, $(CAT_DIR))
+BUILD	:= build
+BIN_DIR := $(BUILD)/bin
+DEP_DIR	:= $(BUILD)/dep
+LIB_DIR	:= $(BUILD)/lib
+OBJ_DIR := $(BUILD)/obj
+CAT_DIR	:= $(patsubst src/%/, %, $(dir $(wildcard src/*/.)))
+SUB_DIR	:= $(BIN_DIR) $(DEP_DIR) $(LIB_DIR) $(OBJ_DIR) \
+		   $(addprefix $(DEP_DIR)/, $(CAT_DIR)) \
+		   $(addprefix $(OBJ_DIR)/, $(CAT_DIR))
 
 # FILES
 NAME	:= sfsca
@@ -28,6 +28,7 @@ DEP		:= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 OBJ		:= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 all: $(EXEC)
+	./$(EXEC)
 
 clean:
 	rm -rf $(BUILD)

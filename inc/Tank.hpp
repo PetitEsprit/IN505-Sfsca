@@ -22,8 +22,7 @@ class Tank : public Part
 		void setP1(e_state e);
 		void setP2(e_state e);
 		void setFuel(e_state e);
-		void transmit(bool *b);
-		void toString();
+		std::string toString();
 };
 
 #endif
