@@ -1,17 +1,17 @@
 #ifndef VALVE_HPP
 #define VALVE_HPP
 
-#include "e_state.hpp" 
 #include "Part.hpp"
 
 class Valve : public Part
 {
-	e_state state;
+	bool state;
 	public:
 		Valve();
 		~Valve();
-		int getState();
+		bool getState();
 		void transmit(bool *b);
+		void toString();
 };
 
 #endif

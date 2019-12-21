@@ -17,3 +17,8 @@ void Part::addLink(Part* p)
 {
 	pnearby.push_back(p);
 }
+
+void Part::toString()
+{
+	std::cout << "I don't know this kind Part !" << std::endl;
+}

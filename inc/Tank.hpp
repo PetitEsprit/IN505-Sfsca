@@ -1,8 +1,14 @@
 #ifndef TANK_HPP
 #define TANK_HPP
 
-#include "e_state.hpp"
 #include "Part.hpp"
+
+enum e_state
+{
+	BROKEN = -1,//pump
+	OFF = 0,
+	ON = 1,
+};
 
 class Tank : public Part
 {
@@ -10,13 +16,14 @@ class Tank : public Part
 	public:
 		Tank();
 		~Tank();
-		int getP1();
-		int getP2();
-		int getFuel();
+		e_state getP1();
+		e_state getP2();
+		e_state getFuel();
 		void setP1(e_state e);
 		void setP2(e_state e);
 		void setFuel(e_state e);
 		void transmit(bool *b);
+		void toString();
 };
 
 #endif

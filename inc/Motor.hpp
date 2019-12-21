@@ -1,7 +1,6 @@
 #ifndef MOTOR_HPP
 #define MOTOR_HPP
 
-#include "e_state.hpp"
 #include "Part.hpp"
 
 class Motor : public Part
@@ -10,6 +9,7 @@ class Motor : public Part
 		Motor();
 		~Motor();
 		void transmit(bool *b);
+		void toString();
 };
 
 #endif

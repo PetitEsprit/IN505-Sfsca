@@ -17,6 +17,7 @@ class Part
 		std::vector<Part *> &getPn(); //Mettre une surchage [] ?
 		void addLink(Part* p);
 		virtual void transmit(bool* hasvisit) = 0;
+		virtual void toString();
 };
 
 #endif
