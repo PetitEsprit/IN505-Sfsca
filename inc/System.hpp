@@ -23,6 +23,8 @@ class System
 {
 	private:
 		Part *parts[11];
+		void print_tank(Part *p, const char *name);
+		void print_valve(Part *p, const char *name);
 	public:
 		System();
 		~System();

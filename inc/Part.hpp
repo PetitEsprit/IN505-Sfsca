@@ -8,6 +8,7 @@ class Part
 		Part();
 		virtual ~Part();
 		int getId();
+		virtual bool getState();
 		virtual std::string toString();
 };
 
