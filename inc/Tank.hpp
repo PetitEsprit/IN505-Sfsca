@@ -18,6 +18,7 @@ class Tank : public Part
 		e_state getP1();
 		e_state getP2();
 		e_state getFuel();
+		bool isWorking();
 		void setP1(e_state e);
 		void setP2(e_state e);
 		void setFuel(e_state e);
