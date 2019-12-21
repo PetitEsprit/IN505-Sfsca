@@ -2,7 +2,7 @@
 
 Tank::Tank() {}
 
-Tank::~Tank(){}
+Tank::~Tank() {}
 
 e_state Tank::getP1() { return p1; }
 

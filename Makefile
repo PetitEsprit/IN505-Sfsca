@@ -41,7 +41,7 @@ $(BUILD):
 $(LIB): $(OBJ) | $(BUILD)
 	ar -rcs $@ $^
 
-$(EXEC): src/main.cpp $(INC) | $(BUILD) $(LIB)
+$(EXEC): src/main.cpp $(INC) $(LIB)
 	$(CXX) $(CXXFLAGS) $(IDFLAGS) $< -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: src/%.cpp | $(BUILD)

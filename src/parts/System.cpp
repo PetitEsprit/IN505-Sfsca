@@ -17,7 +17,6 @@ System::System()
 
 	parts[VT12] = new Valve();
 	parts[VT23] = new Valve();
-	
 }
 
 System::~System()
@@ -27,6 +26,12 @@ System::~System()
 
 void System::run()
 {
-	
+	std::string s;
+
+	do
+	{
+		std::cout << "ptdr t ki" << std::endl;
+		std::cin >> s;
+	} while (s.compare("exit") && s.compare("quit"));
 }
 

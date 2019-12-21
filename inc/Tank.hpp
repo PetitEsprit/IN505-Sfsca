@@ -1,7 +1,6 @@
 #ifndef TANK_HPP
-#define TANK_HPP
-
-#include "Part.hpp"
+# define TANK_HPP
+# include "Part.hpp"
 
 enum e_state
 {
