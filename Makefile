@@ -1,6 +1,6 @@
 # COMPILATION
 CXX			:= g++
-CXXFLAGS	:= -Wall -Wextra -Werror
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++11
 DFLAGS		= -MP -MMD -MF $(DEP_DIR)/$*.d -MT '$@'
 IDFLAGS		:= -I./inc
 LDFLAGS		= -L./$(LIB_DIR) -l$(NAME)

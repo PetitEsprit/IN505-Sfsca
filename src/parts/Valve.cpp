@@ -1,12 +1,12 @@
 #include "Valve.hpp"
 
-Valve::Valve() : state(true) {}
+Valve::Valve() : closed(false)
+{}
 
-Valve::~Valve() {}
+Valve::~Valve()
+{}
 
-bool Valve::getState() { return state; }
-
-std::string Valve::toString()
+bool Valve::isClosed()
 {
-	return "Valve";
+	return (closed);
 }

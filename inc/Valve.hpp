@@ -1,15 +1,14 @@
 #ifndef VALVE_HPP
 # define VALVE_HPP
-# include "Part.hpp"
 
-class Valve : public Part
+class Valve
 {
-	bool state;
+	bool closed;
 	public:
 		Valve();
 		~Valve();
-		bool getState();
-		std::string toString();
+
+		bool isClosed();
 };
 
 #endif

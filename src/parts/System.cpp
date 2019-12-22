@@ -3,41 +3,26 @@
 
 System::System()
 {
-	parts[T1] = new Tank();
-	parts[T2] = new Tank();
-	parts[T3] = new Tank();
+	motor[M1] = new Motor();
+	motor[M2] = new Motor();
+	motor[M3] = new Motor();
 
-	parts[M1] = new Motor();
-	parts[M2] = new Motor();
-	parts[M3] = new Motor();
+	tank[T1] = new Tank("T1");
+	tank[T2] = new Tank("T2");
+	tank[T3] = new Tank("T3");
 
-	parts[V12] = new Valve();
-	parts[V13] = new Valve();
-	parts[V23] = new Valve();
-
-	parts[VT12] = new Valve();
-	parts[VT23] = new Valve();
+	valve[V12] = new Valve();
+	valve[V13] = new Valve();
+	valve[V23] = new Valve();
+	valve[VT12] = new Valve();
+	valve[VT23] = new Valve();
 }
 
 System::~System()
 {
-	for (Part *p : parts) delete p;
-}
-
-void System::print_tank(Part *p, const char *name)
-{
-	std::cout << "│";
-	if (!p->getState())
-		std::cout << "\033[32m";
-	std::cout << name << "\033[0m│";
-}
-
-void System::print_valve(Part *p, const char *name)
-{
-	std::cout << "┄";
-	if (p->getState())
-		std::cout << "\033[31m";
-	std::cout << name << "\033[0m┄";
+	for (Motor *m : motor) delete m;
+	for (Tank *t : tank) delete t;
+	for (Valve *v : valve) delete v;
 }
 
 void System::run()
@@ -46,16 +31,12 @@ void System::run()
 
 	do
 	{
-		std::cout << "\033[1J\033[0;0H";
+		std::cout << "\033[1J\033[2H";
 		if (!s.compare("help"))
 			std::cout << "\tType \"exit\" or \"quit\" to quit the program";
-		std::cout << "\n\n\t╭──╮      ╭──╮      ╭──╮\n\t";
-		print_tank(parts[T1], "T1");
-		print_valve(parts[VT12], "VT12");
-		print_tank(parts[T2], "T2");
-		print_valve(parts[VT23], "VT23");
-		print_tank(parts[T3], "T3");
-		std::cout << "\n\t╰──╯      ╰──╯      ╰──╯\n";
+		tank[T1]->print(4, 4);
+		tank[T2]->print(15, 4);
+		tank[T3]->print(26, 4);
 		std::cout << "\n\n> ";
 		std::cin >> s;
 	} while (s.compare("exit") && s.compare("quit"));

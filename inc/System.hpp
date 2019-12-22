@@ -4,15 +4,23 @@
 # include "Tank.hpp"
 # include "Valve.hpp"
 
-enum e_part
+enum e_motor
+{
+	M1 = 0,
+	M2,
+	M3
+};
+
+enum e_tank
 {
 	T1 = 0,
 	T2,
-	T3,
-	M1,
-	M2,
-	M3,
-	V12,
+	T3
+};
+
+enum e_valve
+{
+	V12 = 0,
 	V13,
 	V23,
 	VT12,
@@ -22,9 +30,9 @@ enum e_part
 class System
 {
 	private:
-		Part *parts[11];
-		void print_tank(Part *p, const char *name);
-		void print_valve(Part *p, const char *name);
+		Motor *motor[3];
+		Tank *tank[3];
+		Valve *valve[5];
 	public:
 		System();
 		~System();
