@@ -1,14 +1,18 @@
 #ifndef VALVE_HPP
 # define VALVE_HPP
+# include "Part.hpp"
 
-class Valve
+
+class Valve : public Part
 {
-	bool closed;
+	bool		closed;
 	public:
-		Valve();
+		Valve(const char *name);
+		Valve(const char *name, bool closed);
 		~Valve();
 
 		bool isClosed();
+		void supplyFuel();
 };
 
 #endif

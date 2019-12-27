@@ -1,6 +1,10 @@
 #include "Valve.hpp"
+#include <iostream>
 
-Valve::Valve() : closed(false)
+Valve::Valve(const char *name) : Part(name), closed(false)
+{}
+
+Valve::Valve(const char *name, bool closed) : Part(name), closed(closed)
 {}
 
 Valve::~Valve()
@@ -9,4 +13,20 @@ Valve::~Valve()
 bool Valve::isClosed()
 {
 	return (closed);
+}
+
+void Valve::supplyFuel()
+{
+	//std::cout << "YEAH from: " << name << std::endl;
+	if(closed)
+	{
+		for(unsigned int i = 0; i < pnearby.size(); i++)
+		{
+			if(!pnearby[i]->isMarked())
+			{
+				pnearby[i]->mark();
+				pnearby[i]->supplyFuel();
+			}
+		}
+	}
 }

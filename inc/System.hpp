@@ -37,6 +37,9 @@ class System
 		System();
 		~System();
 		void run();
+		void unmarkAll();
+		void balanceFuel();
+		void supplyFuel();
 };
 
 #endif
