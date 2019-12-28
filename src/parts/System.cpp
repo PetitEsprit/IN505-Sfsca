@@ -55,23 +55,13 @@ System::~System()
 
 void System::run()
 {
-	std::string s;
-	
 	balanceFuel();
 	
-	do
-	{
-		std::cout << "\033[1J\033[2H";
-		if (!s.compare("help"))
-			std::cout << "\tType \"exit\" or \"quit\" to quit the program";
-		tank[T1]->print(4, 4);
-		tank[T2]->print(15, 4);
-		tank[T3]->print(26, 4);
-		std::cout << "\n";
-		std::cout << "\n\n> ";
-		std::cin >> s;
-	} while (s.compare("exit") && s.compare("quit"));
-	
+	std::cout << "\033[1J\033[2H";
+	tank[T1]->print(4, 4);
+	tank[T2]->print(15, 4);
+	tank[T3]->print(26, 4);
+	std::cin.get();std::cin.get();
 	std::cout << "\033[1J\033[2H";
 	
 	tank[T1]->supplyFuel();
@@ -92,6 +82,7 @@ void System::run()
 	motor[M1]->showSupplier();
 	motor[M2]->showSupplier();
 	motor[M3]->showSupplier();
+	std::cin.get();
 }
 
 void System::balanceFuel()

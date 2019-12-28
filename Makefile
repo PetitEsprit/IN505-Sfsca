@@ -1,6 +1,6 @@
 # COMPILATION
 CXX			:= g++
-CXXFLAGS	:= -Wall -Wextra -Werror -std=c++11
+CXXFLAGS	:= -Wall -Wextra -Werror -std=c++11 -g
 DFLAGS		= -MP -MMD -MF $(DEP_DIR)/$*.d -MT '$@'
 IDFLAGS		:= -I./inc
 LDFLAGS		= -L./$(LIB_DIR) -l$(NAME)
@@ -8,6 +8,7 @@ LDFLAGS		= -L./$(LIB_DIR) -l$(NAME)
 
 # DIRECTORIES
 BUILD	:= build
+DATA	:= data
 BIN_DIR := $(BUILD)/bin
 DEP_DIR	:= $(BUILD)/dep
 LIB_DIR	:= $(BUILD)/lib
@@ -31,12 +32,12 @@ all: $(EXEC)
 	./$(EXEC)
 
 clean:
-	rm -rf $(BUILD)
+	rm -rf $(BUILD) $(DATA)
 
 re: clean all
 
 $(BUILD):
-	mkdir $@ $(SUB_DIR)
+	mkdir $@ $(DATA) $(SUB_DIR)
 
 $(LIB): $(OBJ) | $(BUILD)
 	ar -rcs $@ $^
