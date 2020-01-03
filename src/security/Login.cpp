@@ -3,6 +3,16 @@
 #include "Login.hpp"
 #include "sha512.hpp"
 
+Login::Login() :
+errcode(0),
+history(NULL)
+{}
+
+Login::~Login()
+{
+	this->logout();
+}
+
 string const Login::error_msg[] =
 {
 	"",
@@ -23,6 +33,11 @@ bool Login::fileExists(string path)
 {
 	ifstream file(path.c_str());
 	return (file.is_open());
+}
+
+void Login::loadHistory()
+{
+
 }
 
 bool Login::checkPassword(string password)
@@ -54,14 +69,6 @@ bool Login::checkPassword(string password)
 	
 }
 
-Login::Login() : errcode(0) {}
-
-Login::~Login()
-{
-	if (this->isLogged())
-		fd.close();
-}
-
 int Login::create(string username, string password)
 {
 	string path;
@@ -74,7 +81,7 @@ int Login::create(string username, string password)
 		return (errcode = USER_SPECIAL);
 	if (!checkPassword(password))
 		return (-1);
-	fd.open(path, fstream::out);
+	fd.open(path, fstream::in | fstream::out);
 	fd << sha512sum(username + password) << endl;
 	fd.close();
 	return (errcode = SUCCESS);
@@ -116,6 +123,7 @@ int Login::logout()
 	this->username = "";
 	this->password = "";
 	this->hash = "";
+	// Add delete history
 	return (errcode = SUCCESS);
 }
 
@@ -135,11 +143,6 @@ int Login::changePassword(string new_password)
 string Login::getUsername()
 {
 	return (username);
-}
-
-string Login::getHash()
-{
-	return (hash);
 }
 
 string Login::getErrorMessage()

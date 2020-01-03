@@ -1,9 +1,7 @@
 #ifndef LOGIN_HPP
 # define LOGIN_HPP
-#include <fstream>
-# include <string>
-
-using namespace std;
+# include <fstream>
+# include "Grade.hpp"
 
 enum e_login_errcode
 {
@@ -24,15 +22,19 @@ enum e_login_errcode
 class Login
 {
 	private:
-		int errcode;
 		static string const error_msg[];
-		fstream fd;
-		string username;
-		string password;
-		string hash;
+		int		errcode;
+		fstream	fd;
+		string	username;
+		string	password;
+		string	hash;
+		Grade	*history;
 
 		// Returns true if the file exists
-		bool fileExists(string path);
+		bool	fileExists(string path);
+
+		// Load user file history which contains all grades
+		void	loadHistory();
 
 		// Returns true if the password is secure
 		bool	checkPassword(string password);
@@ -58,9 +60,6 @@ class Login
 
 		// Returns the username
 		string	getUsername();
-
-		// Returns the hash
-		string	getHash();
 
 		// Returns an error message based on the last error
 		string	getErrorMessage();
