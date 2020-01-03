@@ -1,12 +1,10 @@
 #include <cctype>
 #include <iostream>
+#include <stdio.h>
 #include "Login.hpp"
 #include "sha512.hpp"
 
-Login::Login() :
-errcode(0),
-history(NULL)
-{}
+Login::Login() : errcode(0) {}
 
 Login::~Login()
 {
@@ -20,6 +18,7 @@ string const Login::error_msg[] =
 	"L'utilisateur est déjà connecté",
 	"L'utilisateur n'existe pas",
 	"L'utilisateur existe déjà",
+	"Le nom de l'utilisateur doit au moins contenir 4 charactères",
 	"Le mot de passe contient des caractères illégaux",
 	"Le mot de passe doit contenir au moins un chiffre, une majuscule, une minuscule et un caractère spécial",
 	"Le mot de passe doit faire au minimum 10 caractères",
@@ -35,9 +34,33 @@ bool Login::fileExists(string path)
 	return (file.is_open());
 }
 
+string Login::getHistoryHash()
+{
+	string s;
+
+	s = hash + to_string((int)(71 * (history.size() + password.length())));
+	for (Grade& g : history)
+		s += to_string(g.getTimestamp()) + to_string(g.getGrade());
+	return (sha512sum(s));
+}
+
 void Login::loadHistory()
 {
+	string	s;
+	string	buf;
+	float	g;
+	int		t, r;
 
+	r = 0;
+	getline(fd, s);
+	while (!fd.eof() && (r = sscanf(s.c_str(), "%d,%f", &t, &g)) == 2)
+		history.push_back(Grade(g, t));
+	getline(fd, buf);
+	if (r < 0 || !fd.eof() || s.compare(getHistoryHash()))
+		errcode = CORRUPT_FILE;
+	else
+		errcode = SUCCESS;
+	cout << history.size() << endl;
 }
 
 bool Login::checkPassword(string password)
@@ -72,24 +95,28 @@ bool Login::checkPassword(string password)
 int Login::create(string username, string password)
 {
 	string path;
+	string hash;
 
 	if (this->isLogged())
 		return (errcode = LOGGED);
+	if (username.length() < 4)
+		return (errcode = USER_LEN);
 	if (fileExists(path = "data/" + username + ".dat"))
 		return (errcode = USER_EXIST);
 	if (username.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_-") != string::npos)
 		return (errcode = USER_SPECIAL);
 	if (!checkPassword(password))
 		return (-1);
-	fd.open(path, fstream::in | fstream::out);
-	fd << sha512sum(username + password) << endl;
+	fd.open(path, fstream::out);
+	hash = sha512sum(username + password);
+	fd << hash << endl;
+	fd << sha512sum(hash + to_string((int)(71 * password.length()))) << endl;
 	fd.close();
 	return (errcode = SUCCESS);
 }
 
 int Login::login(string username, string password)
 {
-	string hash;
 	string path;
 
 	if (this->isLogged())
@@ -97,21 +124,25 @@ int Login::login(string username, string password)
 	if (!fileExists(path = "data/" + username + ".dat"))
 		return (errcode = INVALID_LOGIN);
 	fd.open(path, fstream::in | fstream::out);
-	getline(fd, hash);
-	if (hash.length() != 128
-		|| hash.find_first_not_of("abcdefABCDEF01234567890") != string::npos)
+	this->username = username;
+	this->password = password;
+	if (!getline(fd, this->hash) || this->hash.length() != 128
+		|| this->hash.find_first_not_of("abcdefABCDEF01234567890") != string::npos)
 		errcode = CORRUPT_FILE;
-	else if (hash.compare(sha512sum(username + password)))
+	else if (this->hash.compare(sha512sum(username + password)))
 		errcode = INVALID_LOGIN;
 	else
-	{
-		this->username = username;
-		this->password = password;
-		this->hash = hash;
-		errcode = SUCCESS;
-	}
+		loadHistory();
 	if (errcode)
+	{
 		fd.close();
+		this->username = "";
+		this->password = "";
+		this->hash = "";
+		history.clear();
+	}
+	else
+		errcode = SUCCESS;
 	return (errcode);
 }
 
@@ -148,4 +179,26 @@ string Login::getUsername()
 string Login::getErrorMessage()
 {
 	return (error_msg[errcode]);
+}
+
+void Login::addEntry(float grade)
+{
+	if (!this->isLogged())
+		return ;
+	history.push_back(Grade(grade));
+}
+
+float Login::getAverage()
+{
+	float n;
+
+	n = 0;
+	for (Grade& g : history)
+		n += g.getGrade();
+	return (n / history.size());
+}
+
+list <Grade>	&Login::getHistory()
+{
+	return (history);
 }

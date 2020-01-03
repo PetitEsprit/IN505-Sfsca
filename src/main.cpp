@@ -52,7 +52,7 @@ void	test_login()
 
 	do
 	{
-		cout << "\033[2J\033[1;1H";
+		//cout << "\033[2J\033[1;1H";
 		if (!user.compare("help"))
 			cout << HELP_MSG;
 		if (lg.getErrorMessage().empty())
@@ -98,5 +98,7 @@ int		main()
 		cout << "\n > ";
 		cin >> s;
 	} while (!want_exit(s));
+	Grade g(8.5); // New grade test
+	cout << g.getDate("%F à %T: ") << g.getGrade() << endl;
 	return 0;
 }

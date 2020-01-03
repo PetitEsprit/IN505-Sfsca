@@ -1,6 +1,7 @@
 #ifndef LOGIN_HPP
 # define LOGIN_HPP
 # include <fstream>
+# include <list>
 # include "Grade.hpp"
 
 enum e_login_errcode
@@ -10,6 +11,7 @@ enum e_login_errcode
 	LOGGED,
 	USER_NOT_EXIST,
 	USER_EXIST,
+	USER_LEN,
 	ILLEGAL_PASS,
 	WEAK_PASS,
 	WEAK_PASS_LEN,
@@ -23,15 +25,18 @@ class Login
 {
 	private:
 		static string const error_msg[];
-		int		errcode;
-		fstream	fd;
-		string	username;
-		string	password;
-		string	hash;
-		Grade	*history;
+		int				errcode;
+		fstream			fd;
+		string			username;
+		string			password;
+		string			hash;
+		list <Grade>	history;
 
 		// Returns true if the file exists
 		bool	fileExists(string path);
+
+		// Returns the hash of the history
+		string	getHistoryHash();
 
 		// Load user file history which contains all grades
 		void	loadHistory();
@@ -63,6 +68,15 @@ class Login
 
 		// Returns an error message based on the last error
 		string	getErrorMessage();
+
+		// Add a new grade between 0.0 and 10.0 if user is connected
+		void	addEntry(float grade);
+
+		// Get grades average for current user
+		float	getAverage();
+
+		// Get grades for current user
+		list <Grade>	&getHistory();
 };
 
 #endif
