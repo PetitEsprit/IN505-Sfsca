@@ -106,7 +106,7 @@ int Login::create(string username, string password)
 	if (username.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_-") != string::npos)
 		return (errcode = USER_SPECIAL);
 	if (!checkPassword(password))
-		return (-1);
+		return (errcode);
 	fd.open(path, fstream::out);
 	hash = sha512sum(username + password);
 	fd << hash << endl;
@@ -170,14 +170,6 @@ int Login::logout()
 bool Login::isLogged()
 {
 	return (fd.is_open());
-}
-
-int Login::changePassword(string new_password)
-{
-	if (!this->isLogged())
-		return (errcode = NOT_LOGGED);
-	(void)new_password;
-	return (errcode = SUCCESS);
 }
 
 string Login::getUsername()

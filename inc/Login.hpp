@@ -49,20 +49,17 @@ class Login
 		Login();
 		~Login();
 	
-		// Create a new user, returns -1 on error
+		// Create a new user, returns 0 on success
 		int		create(string username, string password);
 
-		// Log in to a user, returns -1 on error
+		// Log in to a user, returns 0 on success
 		int		login(string username, string password);
 
-		// Log out, returns -1 on error
+		// Log out, returns 0 on success
 		int		logout();
 
 		// Returns true if user is logged
 		bool	isLogged();
-
-		// Change an user password, returns -1 on error
-		int		changePassword(string new_password);
 
 		// Returns the username
 		string	getUsername();

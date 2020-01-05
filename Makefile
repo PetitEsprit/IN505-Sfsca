@@ -28,22 +28,19 @@ BIN		:= $(SRC_BIN:%.cpp=$(BIN_DIR)/%.out)
 DEP		:= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 OBJ		:= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-all: $(EXEC)
-	./$(EXEC)
+$(EXEC): src/main.cpp $(INC) $(LIB)
+	$(CXX) $(CXXFLAGS) $(IDFLAGS) $< -o $@ $(LDFLAGS)
 
 clean:
 	rm -rf $(BUILD) $(DATA)
 
-re: clean all
+re: clean $(EXEC)
 
 $(BUILD):
 	mkdir $@ $(DATA) $(SUB_DIR)
 
 $(LIB): $(OBJ) | $(BUILD)
 	ar -rcs $@ $^
-
-$(EXEC): src/main.cpp $(INC) $(LIB)
-	$(CXX) $(CXXFLAGS) $(IDFLAGS) $< -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: src/%.cpp | $(BUILD)
 	$(CXX) $(CXXFLAGS) $(DFLAGS) $(IDFLAGS) -c $< -o $@

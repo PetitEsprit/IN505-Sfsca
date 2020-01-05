@@ -1,7 +1,0 @@
-Le système d'identification vise à protéger les données des utilisateurs.
-Il utilise le sha512 comme fonction de hachage, dont nous avons récupéré une implémentation.
-Chaque utilisateur possède un fichier [username].dat où [username] est remplacé par le nom de l'utilisateur.
-
-Exemple de description d'un fichier:
-[sha512(username+password)] # le hash d'identification
-# La suite du fichier contient l'historique des simulations
