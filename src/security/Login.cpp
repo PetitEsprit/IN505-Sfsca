@@ -38,28 +38,28 @@ string Login::getHistoryHash()
 {
 	string s;
 
-	s = hash + to_string((int)(71 * (history.size() + password.length())));
+	s = sha512sum(hash + password);
 	for (Grade& g : history)
-		s += to_string(g.getTimestamp()) + to_string(g.getGrade());
-	return (sha512sum(s));
+		s = sha512sum(s + to_string(g.getTimestamp() + g.getGrade()));
+	return (s);
 }
 
 void Login::loadHistory()
 {
+	string	history_hash;
 	string	s;
-	string	buf;
 	float	g;
 	int		t, r;
 
 	r = 0;
-	getline(fd, s);
-	while (!fd.eof() && (r = sscanf(s.c_str(), "%d,%f", &t, &g)) == 2)
+	getline(fd, history_hash);
+	while (getline(fd, s) && (r = sscanf(s.c_str(), "%d,%f", &t, &g)) == 2)
 		history.push_back(Grade(g, t));
-	getline(fd, buf);
-	if (r < 0 || !fd.eof() || s.compare(getHistoryHash()))
+	if (r < 0 || !fd.eof() || history_hash.compare(getHistoryHash()))
 		errcode = CORRUPT_FILE;
 	else
 		errcode = SUCCESS;
+	size = history.size();
 	cout << history.size() << endl;
 }
 
@@ -110,7 +110,7 @@ int Login::create(string username, string password)
 	fd.open(path, fstream::out);
 	hash = sha512sum(username + password);
 	fd << hash << endl;
-	fd << sha512sum(hash + to_string((int)(71 * password.length()))) << endl;
+	fd << sha512sum(hash + password) << endl;
 	fd.close();
 	return (errcode = SUCCESS);
 }
@@ -123,7 +123,7 @@ int Login::login(string username, string password)
 		return (errcode = LOGGED);
 	if (!fileExists(path = "data/" + username + ".dat"))
 		return (errcode = INVALID_LOGIN);
-	fd.open(path, fstream::in | fstream::out);
+	fd.open(path, fstream::in | fstream::out);	
 	this->username = username;
 	this->password = password;
 	if (!getline(fd, this->hash) || this->hash.length() != 128
@@ -150,11 +150,20 @@ int Login::logout()
 {
 	if (!this->isLogged())
 		return (errcode = NOT_LOGGED);
+	fd.clear();
+	fd.seekp(0, ios_base::end);
+	for (Grade& g : history)
+		if (size)
+			--size;
+		else
+			fd << g.getTimestamp() << ',' << g.getGrade() << endl;
+	fd.seekp(129, ios_base::beg);
+	fd << getHistoryHash();
 	fd.close();
-	this->username = "";
-	this->password = "";
-	this->hash = "";
-	// Add delete history
+	username = "";
+	password = "";
+	hash = "";
+	history.clear();
 	return (errcode = SUCCESS);
 }
 
@@ -190,12 +199,14 @@ void Login::addEntry(float grade)
 
 float Login::getAverage()
 {
-	float n;
+	double	n;
+	size_t	total;
 
+	total = history.size();
 	n = 0;
 	for (Grade& g : history)
 		n += g.getGrade();
-	return (n / history.size());
+	return (total ? n / total : 0);
 }
 
 list <Grade>	&Login::getHistory()

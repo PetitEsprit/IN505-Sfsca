@@ -4,14 +4,12 @@
 
 Grade::Grade(float grade) :
 g(grade),
-t(time(NULL)),
-newEntry(true)
+t(time(NULL))
 {}
 
 Grade::Grade(float grade, time_t timestamp) :
 g(grade),
-t(timestamp),
-newEntry(false)
+t(timestamp)
 {}
 
 Grade::~Grade() {}
@@ -31,9 +29,4 @@ float Grade::getGrade()
 time_t Grade::getTimestamp()
 {
 	return (t);
-}
-
-bool Grade::isNewEntry()
-{
-	return (newEntry);
 }

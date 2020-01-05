@@ -31,6 +31,7 @@ class Login
 		string			password;
 		string			hash;
 		list <Grade>	history;
+		size_t			size;
 
 		// Returns true if the file exists
 		bool	fileExists(string path);

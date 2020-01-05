@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include "Login.hpp"
 #include "System.hpp"
@@ -49,6 +51,7 @@ void	test_login()
 {
 	Login	lg;
 	string	user, pass;
+	float	grade;
 
 	do
 	{
@@ -70,6 +73,11 @@ void	test_login()
 	{
 		cout << "Logged successfully!\n";
 		cout << "Welcome, " << lg.getUsername() << "!\n";
+		cout << "History size: " << lg.getHistory().size() << endl;
+		cout << "History average: " << lg.getAverage() << endl;
+		grade = rand() % 10 + (float)(rand() % 100) / 100;
+		lg.addEntry(grade);
+		cout << "random grade added (value: " << grade << ")" << endl;
 		lg.logout();
 		wait_enter();
 	}
@@ -80,6 +88,7 @@ int		main()
 	System sfsca;
 	string s;
 
+	srand(time(nullptr));
 	do
 	{
 		if (!s.compare("1"))
@@ -98,7 +107,5 @@ int		main()
 		cout << "\n > ";
 		cin >> s;
 	} while (!want_exit(s));
-	Grade g(8.5); // New grade test
-	cout << g.getDate("%F à %T: ") << g.getGrade() << endl;
 	return 0;
 }

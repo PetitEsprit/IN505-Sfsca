@@ -1,6 +1,6 @@
 #ifndef GRADE_HPP
 # define GRADE_HPP
-#include <ctime>
+# include <ctime>
 # include <string>
 
 using namespace std;
@@ -10,7 +10,6 @@ class Grade
 	private:
 		float	g;
 		time_t	t;
-		bool	newEntry;
 
 	public:
 		Grade(float grade);
@@ -28,9 +27,6 @@ class Grade
 
 		// get timestamp value
 		time_t	getTimestamp();
-
-		// Returns true if grade was initialized without timestamp
-		bool	isNewEntry();
 };
 
 #endif
