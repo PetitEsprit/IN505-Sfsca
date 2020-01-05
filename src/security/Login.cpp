@@ -1,3 +1,4 @@
+#include <sys/stat.h>
 #include <cctype>
 #include <iostream>
 #include <stdio.h>
@@ -101,6 +102,8 @@ int Login::create(string username, string password)
 		return (errcode = LOGGED);
 	if (username.length() < 4)
 		return (errcode = USER_LEN);
+	if (!fileExists("./data") && mkdir("./data", 0777))
+		return (-1);
 	if (fileExists(path = "data/" + username + ".dat"))
 		return (errcode = USER_EXIST);
 	if (username.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_-") != string::npos)

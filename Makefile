@@ -8,7 +8,6 @@ LDFLAGS		= -L./$(LIB_DIR) -l$(NAME)
 
 # DIRECTORIES
 BUILD	:= build
-DATA	:= data
 BIN_DIR := $(BUILD)/bin
 DEP_DIR	:= $(BUILD)/dep
 LIB_DIR	:= $(BUILD)/lib
@@ -32,12 +31,12 @@ $(EXEC): src/main.cpp $(INC) $(LIB)
 	$(CXX) $(CXXFLAGS) $(IDFLAGS) $< -o $@ $(LDFLAGS)
 
 clean:
-	rm -rf $(BUILD) $(DATA)
+	rm -rf $(BUILD) data
 
 re: clean $(EXEC)
 
 $(BUILD):
-	mkdir $@ $(DATA) $(SUB_DIR)
+	mkdir $@ $(SUB_DIR)
 
 $(LIB): $(OBJ) | $(BUILD)
 	ar -rcs $@ $^
