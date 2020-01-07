@@ -1,5 +1,4 @@
 #include "tankitem.h"
-#include <QDebug>
 
 TankItem::TankItem(qreal x, qreal y, qreal w, qreal h) : rec(x,y, w, h), itemP1(x+10, y+h-40, 30, 30, this), itemP2(x+60, y+h-40, 30, 30,this)
 {}
@@ -8,11 +7,11 @@ QRectF TankItem::boundingRect() const { return QRectF(rec.x(), rec.y(), rec.widt
 
 void TankItem::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option*/, QWidget */*widget*/)
 {
-    QBrush whiteb(Qt::white),blackb(Qt::black), grayb(Qt::gray);
+    QBrush whiteb(Qt::white),blackb(Qt::black), redb(QColor(120, 0, 0));
     QPen whitep(Qt::white),blackp(Qt::black);
 
-    bool iscurrempty;
-    e_pump p1, p2;
+    bool iscurrempty = true;
+    e_pump p1 = OFF, p2 = OFF;
     if(tptr)
     {
         iscurrempty = tptr->isCurrEmpty();
@@ -20,8 +19,8 @@ void TankItem::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option
         p2 = tptr->getP2();
     }
 
-    if(iscurrempty)painter->setPen(QPen (Qt::green));
-    else{ painter->setBrush(QBrush (Qt::green)); }
+    if(iscurrempty)painter->setPen(QPen (QColor(80, 191, 106)));
+    else{ painter->setBrush(QBrush (QColor(80, 191, 106))); }
     painter->drawRoundedRect(rec,10,10);
 
     QRectF itemP1rec = itemP1.rect();
@@ -41,7 +40,7 @@ void TankItem::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option
     }
     else if(p1 == BROKEN)//si broken ..
     {
-        painter->setBrush(grayb);
+        painter->setBrush(redb);
         painter->drawEllipse(itemP1rec);
         painter->setPen(whitep);
     }
@@ -61,7 +60,7 @@ void TankItem::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option
     }
     else if(p2 == BROKEN)
     {
-        painter->setBrush(grayb);
+        painter->setBrush(redb);
         painter->drawEllipse(itemP2rec);
         painter->setPen(whitep);
     }
@@ -69,14 +68,13 @@ void TankItem::paint(QPainter *painter, const QStyleOptionGraphicsItem */*option
 
     painter->setPen(blackp);
     painter->drawText(itemP1rec.x()+20, itemP1rec.y()-20, tptr->name);
-
-    //qDebug() << tptr->name << '\n';
 }
 
 void TankItem::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
     bool isempty;
-    e_pump p1, p2;
+    e_pump p1 = OFF, p2 = OFF;
+    isempty = true;
     if(tptr)
     {
         isempty = tptr->isEmpty();

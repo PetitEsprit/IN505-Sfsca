@@ -27,7 +27,6 @@ void Valve::open()
 
 void Valve::supplyFuel()
 {
-	//std::cout << "YEAH from: " << name << std::endl;
 	if(closed)
 	{
 		for(unsigned int i = 0; i < pnearby.size(); i++)

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,13 +31,14 @@ void MainWindow::drawScore()
         msg += g.getDate("%F %T") + ": " + to_string(g.getGrade()) + "\n";
 
     }
+    msg += "\nAverage: ";
+    msg += to_string(ulogin.getAverage());
     ui->score_edit->setText(QString(msg.c_str()));
 }
 
 void MainWindow::on_button_login_pressed()
 {
     int code = ulogin.login(ui->line_user->text().toStdString(), ui->line_pass->text().toStdString());
-    qDebug()<< "CODE: " << code << '\n';
     if(code == SUCCESS)
         ui->stackedWidget->setCurrentIndex(1);
     else

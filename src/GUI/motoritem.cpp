@@ -15,11 +15,9 @@ void MotorItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     painter->setPen(blackp);
     painter->drawText(rec.x()+rec.width()/4, rec.y()+rec.height()/2, mptr->name);
 
-    //qDebug() << mptr->name << '\n';
     for(unsigned i=0; i < supplier.size(); i++)
     {
         painter->drawText(rec.x()+rec.width() + 10, 20 + rec.y()+i*20, supplier[i]->name);
-        //qDebug() << supplier[i]->name  << '\n';
     }
 
 }

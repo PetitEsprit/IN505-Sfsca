@@ -90,7 +90,6 @@ void Tank::print(unsigned int x, unsigned int y)
 
 void Tank::supplyFuel()
 {
-	//std::cout << "YEAH from: " << name << std::endl;
     if(!currempty && p2 == ON)
 	{
 		for(unsigned int i = 0; i < pnearby.size(); i++)

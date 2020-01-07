@@ -1,6 +1,5 @@
 #include "System.hpp"
 #include <iostream>
-#include <QDebug>
 #include <cstdlib>
 #include <ctime>
 
@@ -147,22 +146,22 @@ void System::balanceFuel()
 
 void System::configRandom()
 {
-    int n = rand()%4;
+    int n = rand()%3;
     for(Valve *v : valve)
         (rand()%2) ? v->open() : v->close();
-    if(n==1)
+    if(n==0)
     {
         tank[T1]->fill();tank[T2]->drain();tank[T3]->drain();
         tank[T1]->setP1(ON);tank[T1]->setP1(ON);tank[T1]->setP1(ON);
         tank[T1]->setP2(OFF);tank[T2]->setP2(OFF);tank[T3]->setP2(OFF);
     }
-    else if(n==2)
+    else if(n==1)
     {
         tank[T1]->drain();tank[T2]->drain();tank[T3]->fill();
         tank[T1]->setP1(ON);tank[T1]->setP1(BROKEN);tank[T1]->setP1(ON);
         tank[T1]->setP2(OFF);tank[T2]->setP2(OFF);tank[T3]->setP2(OFF);
     }
-    else if(n==3)
+    else if(n==2)
     {
         tank[T1]->fill();tank[T2]->drain();tank[T3]->drain();
         tank[T1]->setP1(ON);tank[T1]->setP1(ON);tank[T1]->setP1(ON);

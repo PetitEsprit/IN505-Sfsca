@@ -1,5 +1,4 @@
 #include "sfscascene.h"
-#include <QDebug>
 
 SfscaScene::SfscaScene(qreal x, qreal y, qreal width, qreal height, QObject *parent) :
     QGraphicsScene(x, y, width, height, parent),

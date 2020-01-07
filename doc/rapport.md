@@ -13,17 +13,18 @@ Comtpe rendu du projet d'IN505 de l'UVSQ
 
 ```shell
 .
+├── data
 ├── doc
 ├── inc
-├── main.cpp
 ├── mainwindow.ui
+├── Makefile
 ├── README.md
-├── sfscaGUI.pro
-├── sfscaGUI.pro.user
+├── sfsca.pro
+├── sfsca.pro.user
 └── src
 ```
 
-Les fichiers sources sont situés dans src, les headers dans inc et la documentation relative au projet dans doc.
+Les fichiers sources sont situés dans src, les headers dans inc, les données utilisateurs dans data et la documentation relative au projet dans doc.
 
 ## GUI
 Nous avons utilisé le framework QT ainsi que le QT Creator pour créer rapidement et de manière "visuelle" et plus instinctive une interface utilisateur.
