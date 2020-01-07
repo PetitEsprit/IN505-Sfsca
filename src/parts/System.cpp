@@ -110,11 +110,15 @@ bool System::run()
         }
     }
 	unmarkAll();
+	return isSolved();
+}
 
-    bool completed = true;
-    for(Motor* m : motor)
-           if(m->getPn().empty()) completed = false;
-    return completed;
+bool System::isSolved()
+{
+	bool completed = true;
+	for(Motor* m : motor)
+		if(m->getPn().empty()) {completed = false; break;}
+	return completed;
 }
 
 void System::balanceFuel()
@@ -144,29 +148,31 @@ void System::balanceFuel()
 	if(emptyT3 && !emptyT1 && closedVT12 && closedVT23) tank[T3]->fillAfter();
 }
 
+bool System::configDoable()
+{
+	if(run()) return false;
+	int nbp = 0;
+    for(Tank *t : tank)
+    {
+		if(t->getP1() != BROKEN){ nbp++; }
+		if(t->getP2() != BROKEN){ nbp++; }
+	}
+	return (nbp > 2  && !(tank[T1]->isEmpty() && tank[T3]->isEmpty()));
+}
+
 void System::configRandom()
 {
-    int n = rand()%3;
-    for(Valve *v : valve)
-        (rand()%2) ? v->open() : v->close();
-    if(n==0)
-    {
-        tank[T1]->fill();tank[T2]->drain();tank[T3]->drain();
-        tank[T1]->setP1(ON);tank[T1]->setP1(ON);tank[T1]->setP1(ON);
-        tank[T1]->setP2(OFF);tank[T2]->setP2(OFF);tank[T3]->setP2(OFF);
-    }
-    else if(n==1)
-    {
-        tank[T1]->drain();tank[T2]->drain();tank[T3]->fill();
-        tank[T1]->setP1(ON);tank[T1]->setP1(BROKEN);tank[T1]->setP1(ON);
-        tank[T1]->setP2(OFF);tank[T2]->setP2(OFF);tank[T3]->setP2(OFF);
-    }
-    else if(n==2)
-    {
-        tank[T1]->fill();tank[T2]->drain();tank[T3]->drain();
-        tank[T1]->setP1(ON);tank[T1]->setP1(ON);tank[T1]->setP1(ON);
-        tank[T1]->setP2(BROKEN);tank[T2]->setP2(OFF);tank[T3]->setP2(BROKEN);
-    }
+	do{
+		for(Valve *v : valve)
+			(rand()%2) ? v->open() : v->close();
+		for(Tank* t : tank)
+		{
+			rand()%2 ? t->fill() : t->drain();
+			t->setP1((rand()%3 ? ON : BROKEN));
+			t->setP2((rand()%4 ? OFF : BROKEN));
+		}
+	}
+	while(!(configDoable()));
 }
 
 void System::unmarkAll()

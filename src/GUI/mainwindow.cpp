@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     scene = new SfscaScene(0,0,ui->graphicsView->width()-2,ui->graphicsView->height()-2,ui->graphicsView);
     ui->label_err->setVisible(false);
+    ui->stackedWidget->setCurrentIndex(0);
     connect(scene, SIGNAL(completed()), this, SLOT(addScoreEntry()));
 }
 
@@ -26,13 +27,16 @@ void MainWindow::drawScore()
 {
     list<Grade> &scores = ulogin.getHistory();
     string msg;
+    char buf[16];
     for(Grade g : scores)
     {
-        msg += g.getDate("%F %T") + ": " + to_string(g.getGrade()) + "\n";
+		sprintf(buf, "%.2f", g.getGrade()); 
+        msg += g.getDate("%d/%m/%Y à %T") + ": " + buf + " / 10\n";
 
     }
-    msg += "\nAverage: ";
-    msg += to_string(ulogin.getAverage());
+    sprintf(buf, "%.2f", ulogin.getAverage()); 
+    msg += "\nMoyenne: ";
+    msg += buf;
     ui->score_edit->setText(QString(msg.c_str()));
 }
 

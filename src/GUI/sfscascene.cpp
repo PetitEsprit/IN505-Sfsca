@@ -31,7 +31,7 @@ SfscaScene::SfscaScene(qreal x, qreal y, qreal width, qreal height, QObject *par
 
     //Ajout du Text
     msg_success = addText("", QFont("Ubuntu", 20));
-    msg_success->setPos(width/2 - 30, height/2);
+    msg_success->setPos(width/2 + 10, height/2);
     msg_success->setVisible(false);
 
     connect(&t1, SIGNAL(pressed()), this, SLOT(myupdate()));
@@ -71,9 +71,10 @@ void SfscaScene::runRandomConfig()
 
 float SfscaScene::computeScore()
 {
-    const int POINT_LOST_PERSEC = 3;
-    float s =  10.0 - (end-start)/POINT_LOST_PERSEC;
-    return (s > 0 ? s : 0);
+    const float POINT_LOST_PERSEC = 0.55;
+    float s =  12.0 - (end-start)*POINT_LOST_PERSEC;
+    if(s < 0.0) return 0; 
+    return (s > 10.0 ? 10.0 : s);
 }
 
 void SfscaScene::printSuccessMsg()

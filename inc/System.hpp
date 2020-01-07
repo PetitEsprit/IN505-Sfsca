@@ -33,6 +33,7 @@ class System
 		Motor *motor[3];
 		Tank *tank[3];
 		Valve *valve[5];
+		bool isSolved();
 	public:
 		System();
 		~System();
@@ -40,6 +41,7 @@ class System
 		void balanceFuel();
 		void supplyFuel();
         void configRandom();
+        bool configDoable();
         Motor** getMotors();
         Tank** getTanks();
         Valve** getValves();
