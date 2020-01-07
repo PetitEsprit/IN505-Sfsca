@@ -50,12 +50,19 @@ bool Tank::isCurrEmpty()
 void Tank::drain()
 {
 	empty = true;
+    currempty = true;
+}
+
+void Tank::drainAfter()
+{
+    currempty = true;
 }
 
 // Fill the fuel tank
 void Tank::fill()
 {
 	empty = false;
+    currempty = false;
 }
 
 void Tank::fillAfter()
@@ -84,7 +91,7 @@ void Tank::print(unsigned int x, unsigned int y)
 void Tank::supplyFuel()
 {
 	//std::cout << "YEAH from: " << name << std::endl;
-	if(!currempty && (p1 == ON || p2 == ON))
+    if(!currempty && p2 == ON)
 	{
 		for(unsigned int i = 0; i < pnearby.size(); i++)
 		{

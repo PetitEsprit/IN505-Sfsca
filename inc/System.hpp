@@ -36,10 +36,14 @@ class System
 	public:
 		System();
 		~System();
-		void run();
 		void unmarkAll();
 		void balanceFuel();
 		void supplyFuel();
+        void configRandom();
+        Motor** getMotors();
+        Tank** getTanks();
+        Valve** getValves();
+        bool run();
 };
 
 #endif

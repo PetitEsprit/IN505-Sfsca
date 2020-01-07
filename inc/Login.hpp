@@ -67,14 +67,14 @@ class Login
 		// Returns an error message based on the last error
 		string	getErrorMessage();
 
-		// Add a new grade between 0.0 and 10.0 if user is connected
-		void	addEntry(float grade);
+        // Add a new grade between 0.0 and 10.0 if user is connected
+        void	addEntry(float grade);
 
 		// Get grades average for current user
 		float	getAverage();
 
 		// Get grades for current user
-		list <Grade>	&getHistory();
+        list <Grade>	&getHistory();
 };
 
 #endif

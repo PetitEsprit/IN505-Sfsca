@@ -7,7 +7,7 @@ Motor::~Motor() {}
 
 void Motor::supplyFuel()
 {
-	//std::cout << "YEAH from: " << name << std::endl;
+
 }
 
 void Motor::showSupplier()

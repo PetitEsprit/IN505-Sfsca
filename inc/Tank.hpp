@@ -47,6 +47,8 @@ class Tank : public Part
 		// Drain all fuel from the tank
 		void drain();
 
+        void drainAfter();
+
 		// Fill the fuel tank
 		void fill();
 

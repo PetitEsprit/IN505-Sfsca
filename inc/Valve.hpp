@@ -12,6 +12,8 @@ class Valve : public Part
 		~Valve();
 
 		bool isClosed();
+        void close();
+        void open();
 		void supplyFuel();
 };
 

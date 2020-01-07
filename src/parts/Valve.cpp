@@ -15,6 +15,16 @@ bool Valve::isClosed()
 	return (closed);
 }
 
+void Valve::close()
+{
+    closed = true;
+}
+
+void Valve::open()
+{
+    closed = false;
+}
+
 void Valve::supplyFuel()
 {
 	//std::cout << "YEAH from: " << name << std::endl;
